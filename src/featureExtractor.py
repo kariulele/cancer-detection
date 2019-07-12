@@ -32,10 +32,10 @@ def pretrain_desc(sto):
     train_cov = np.dot(train_desc.T, train_desc)
     eigvals, eigvecs = np.linalg.eig(train_cov)
     perm = eigvals.argsort()                   # sort by increasing eigenvalue
-    pca_transform = eigvecs[:, perm[11:61]]   # eigenvectors for the 50 last eigenvalues
+    pca_transform = eigvecs[:, perm ]  # eigenvectors for the 61 last eigenvalues
     train_desc = np.dot(train_desc, pca_transform)
     
-    kmeans = MiniBatchKMeans(n_clusters=128, random_state=0) 
+    kmeans = KMeans(n_clusters=128, random_state=0) 
     kmeans.fit(train_desc)
     
     return kmeans, train_mean, pca_transform

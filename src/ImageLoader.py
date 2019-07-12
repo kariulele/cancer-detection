@@ -52,6 +52,4 @@ class ImgStorage: # i.e.: storage =  ImgStorage("../datas/train/")
     def size(self):
         return len(self.allList)
 
-    
-storage = ImgStorage('../images/', '../gt_img.csv')
 
