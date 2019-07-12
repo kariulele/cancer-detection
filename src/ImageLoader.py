@@ -50,7 +50,7 @@ class ImgStorage: # i.e.: storage =  ImgStorage("../datas/train/")
         return self.localMap[name]
     
     def size(self):
-        return len(self.localList)
+        return len(self.allList)
 
     
 storage = ImgStorage('../images/', '../gt_img.csv')
