@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from ImageLoader import ImgStorage
-from featureExtractor import make_train_and_test_list
+from featureExtractor import make_train_and_test_list, image_to_KAZEfeature, image_to_ORBfeature,image_to_SIFTfeature
+
+
 from sklearn.gaussian_process.kernels import RBF
 from matplotlib.colors import ListedColormap
 from sklearn.model_selection import train_test_split
@@ -18,6 +20,9 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
+
+
+
 from visu import *
 import matplotlib.pyplot as plt
 
@@ -25,7 +30,7 @@ storage = ImgStorage('../images/', '../gt_img.csv')
 
 
     
-train_image, train_x, train_y, test_image, test_x, test_y = make_train_and_test_list(storage, 0.3)
+train_image, train_x, train_y, test_image, test_x, test_y = make_train_and_test_list(storage, 0.2, image_to_SIFTfeature)
 
 
 def test_classify(clf,name):
@@ -53,20 +58,5 @@ names = ["Nearest Neighbors", "Linear SVM", "RBF SVM", "Gaussian Process",
 for i in range(len(classifiers)):
     test_classify(classifiers[i],names[i])
     
-
-#clf = AdaBoostClassifier(n_estimators=100, random_state=0)
-#test_classify(clf,"AdaBoostClassifier")
-
-
-#kernel = 1.0 * RBF(1.0)
-#clf = GaussianProcessClassifier(kernel=kernel)
-#test_classify(clf,"GaussianProcessClassifier")
-
-
-#clf = RandomForestClassifier(n_estimators=1000, max_depth=10,random_state=0)
-#test_classify(clf,"RandomForestClassifier")
-
-
-
 
 #show_test_res(clf, test_image,test_x, test_y)
