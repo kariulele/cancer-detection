@@ -34,14 +34,19 @@ def getAllImages(basePath, cancerDico):
     storage = {}
     for imgName in files:
         content = openPathToNpArray(basePath + imgName)
-        is_cancer = cancerDico[imgName]
+        is_cancer = None
+        if cancerDico != None:
+            is_cancer = cancerDico[imgName]
         storage[imgName] = Image(imgName, content, is_cancer)
     return storage
    
 class ImgStorage: # i.e.: storage =  ImgStorage("../datas/train/")
     def __init__(self, imgPath, csvPath):
-        isCancerMap = CsvToDicoNameCancer(csvPath)
-        self.localMap = getAllImages(imgPath, isCancerMap)
+        if (csvPath != ""):
+            isCancerMap = CsvToDicoNameCancer(csvPath)
+            self.localMap = getAllImages(imgPath, isCancerMap)
+        else:
+            self.localMap = getAllImages(imgPath, None)
         self.allList = [self.localMap[name] for name in self.localMap]
         self.allCancerList = [elm for elm in self.allList if elm.is_cancer ]
         self.allNoCancerList = [elm for elm in self.allList if not elm.is_cancer ]

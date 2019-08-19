@@ -20,10 +20,11 @@ def image_to_ORBfeature(img):
     return np.array(des)
 
 def image_to_SIFTfeature(img):
-    gray= cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
+    img = cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
     sift = cv2.xfeatures2d.SIFT_create()
-    kp, des = sift.detectAndCompute(gray,None)
-    return np.array(des)
+    kp, des = sift.detectAndCompute(img,None)
+    #print(des)
+    return np.array(des).astype(np.float32)
 
 
 

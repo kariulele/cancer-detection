@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from ImageLoader import ImgStorage
-from featureExtractor import make_train_and_test_list, image_to_KAZEfeature, image_to_ORBfeature,image_to_SIFTfeature
+from featureExtractor import make_train_and_test_list, image_to_KAZEfeature, image_to_ORBfeature,image_to_SIFTfeature,compute_all_descriptor
 
 
 from sklearn.gaussian_process.kernels import RBF
@@ -58,5 +58,16 @@ names = ["Nearest Neighbors", "Linear SVM", "RBF SVM", "Gaussian Process",
 for i in range(len(classifiers)):
     test_classify(classifiers[i],names[i])
     
+    
+clf = RandomForestClassifier(max_depth=10, n_estimators=100, max_features=10)
+clf.fit(train_x, train_y)
+    
+#desc = compute_all_descriptor(storage, image_to_SIFTfeature)
 
-#show_test_res(clf, test_image,test_x, test_y)
+#import numpy as np
+#dico = {}
+#for i in range(storage.size()):
+#    nonom = "sifts/" + storage.allList[i].name[:-4] + ".sift"
+#    desc[i].tofile(nonom,sep=',',format='%10.5f')
+
+show_test_res(clf, test_image,test_x, test_y)
